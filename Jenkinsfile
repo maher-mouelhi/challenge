@@ -1,15 +1,13 @@
 pipeline {
     agent any 
+
     stages {
         stage('Build') {
           steps {
-               withKubeConfig([credentialsId: 'kubernetes-admin']) {
-                   sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'
-                   sh 'chmod u+x ./kubectl'
-                   sh './kubectl get pods -n kube-system'
+                 echo 'building.....'
             }
         }
-}
+
         stage('Checkout Source') {
             steps {
                git branch: 'main', url: 'https://github.com/maher-mouelhi/challenge.git'
@@ -33,11 +31,6 @@ pipeline {
             }
           }
 
-  stage('Apply Kubernetes files') {
-    withKubeConfig([credentialsId: 'kubernetes-admin', serverUrl: 'https://192.168.122.130:6443']) {
-      sh 'kubectl apply -f k8s/elastic/statefulSet.yaml'
-    }
-  }
 
       stage('Deploy Filebeat to Kubernetes') {
           steps {
@@ -55,7 +48,6 @@ pipeline {
               }
             }
           }
-
 
 
 
