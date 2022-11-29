@@ -6,15 +6,16 @@ pipeline {
                 echo 'building!' 
             }
         }
-        stage('Test') {
+        stage('Checkout Source') {
             steps {
-                echo 'testing' 
+               git 'https://github.com/maher-mouelhi/challenge.git' 
             }
         }
-        stage('Deploy') {
+        stage('Deploying App to Kubernetes') {
             steps {
                 echo 'deploying!'
-                sh 'kubectl --kube-config=/home/maher/.kube get nodes'
+                script {
+                   kubernetesDeploy(configs: "k8s/namespace.yaml", kubeconfigId: "kubernetes")
  
             }
         }
