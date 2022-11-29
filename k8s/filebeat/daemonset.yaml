@@ -42,7 +42,7 @@ spec:
       volumes:
       - name: config
         configMap:
-          defaultMode: 0640
+          defaultMode: 416
           name: filebeat-config
       - name: data
         hostPath:
