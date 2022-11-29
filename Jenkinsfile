@@ -37,16 +37,7 @@ pipeline {
           }
 
 
-       stage('Deploy Filebeat to Kubernetes') {
-          steps {
-            script {
-              kubernetesDeploy(configs: "k8s/filebeat/configmap.yaml", kubeconfigId: "kubernetes")
-              }
-            script {
-              kubernetesDeploy(configs: "k8s/filebeat/daemonset.yaml", kubeconfigId: "kubernetes")
-              }
-            }
-          }
+
 
         stage('Deploy Kibana to Kubernetes') {
           steps {
