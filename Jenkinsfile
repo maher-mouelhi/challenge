@@ -41,8 +41,9 @@ pipeline {
           steps {
             script {
               kubernetesDeploy(configs: "k8s/filebeat/configmap.yaml", kubeconfigId: "kubernetes")
+              }
+            script {
               kubernetesDeploy(configs: "k8s/filebeat/daemonset.yaml", kubeconfigId: "kubernetes")
-
               }
             }
           }
