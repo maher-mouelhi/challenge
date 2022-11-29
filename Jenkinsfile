@@ -24,6 +24,8 @@ pipeline {
           steps {
             script {
               kubernetesDeploy(configs: "k8s/elastic/", kubeconfigId: "kubernetes")
+              sh "kubectl --kubeconfig=/home/maher/.kube/config apply -f k8s/elastic/statefulSet.yaml"
+
               }
             }
           }
