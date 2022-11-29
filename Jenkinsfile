@@ -9,6 +9,7 @@ pipeline {
                    sh './kubectl get pods -n kube-system'
             }
         }
+}
         stage('Checkout Source') {
             steps {
                git branch: 'main', url: 'https://github.com/maher-mouelhi/challenge.git'
