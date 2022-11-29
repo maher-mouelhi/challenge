@@ -24,7 +24,7 @@ pipeline {
 
         stage('Deploy ELK Kubernetes') {
           steps {
-            sh 'kubectl apply -f k8s/elastic/'
+            sh 'kubectl apply -f k8s/namespace.yaml'
             }
           }
 
