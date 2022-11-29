@@ -57,13 +57,7 @@ pipeline {
             }
           }
 
-       stage('Deploy Logstash to Kubernetes') {
-          steps {
-            script {
-              kubernetesDeploy(configs: "k8s/logstash/", kubeconfigId: "kubernetes")
-              }
-            }
-          }
+
 
 
 
