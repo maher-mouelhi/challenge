@@ -13,7 +13,9 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'deploying!' 
+                echo 'deploying!'
+                sh 'kubectl --kubeconfig=/home/maher/.kube/ create ns test-project'
+ 
             }
         }
     }
