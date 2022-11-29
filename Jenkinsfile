@@ -15,7 +15,7 @@ pipeline {
         stage('Create namespace in Kubernetes') {
           steps {
             script {
-              kubernetesDeploy(configs: "k8s/namespace.yaml", kubeconfigId: "kubernetes")
+              kubernetesDeploy(configs: "kube-logging.yaml", kubeconfigId: "kubernetes")
               }
             }
           }
@@ -23,15 +23,25 @@ pipeline {
        stage('Deploy Elastic to Kubernetes') {
           steps {
             script {
-              kubernetesDeploy(configs: "k8s/elastic/", kubeconfigId: "kubernetes")
+              kubernetesDeploy(configs: "elasticsearch_statefulset.yaml", kubeconfigId: "kubernetes")
               }
             }
           }
 
+       stage('Deploy Elastic service to Kubernetes') {
+          steps {
+            script {
+              kubernetesDeploy(configs: "elasticsearch_svc.yaml", kubeconfigId: "kubernetes")
+              }
+            }
+          }
+
+
+
        stage('Deploy Filebeat to Kubernetes') {
           steps {
             script {
-              kubernetesDeploy(configs: "k8s/filebeat/", kubeconfigId: "kubernetes")
+              kubernetesDeploy(configs: "filebeat.yaml", kubeconfigId: "kubernetes")
               }
             }
           }
@@ -39,7 +49,7 @@ pipeline {
         stage('Deploy Kibana to Kubernetes') {
           steps {
             script {
-              kubernetesDeploy(configs: "k8s/kibana/", kubeconfigId: "kubernetes")
+              kubernetesDeploy(configs: "kibana.yaml", kubeconfigId: "kubernetes")
               }
             }
           }
@@ -47,7 +57,7 @@ pipeline {
        stage('Deploy Logstash to Kubernetes') {
           steps {
             script {
-              kubernetesDeploy(configs: "k8s/logstash/", kubeconfigId: "kubernetes")
+              kubernetesDeploy(configs: "logstash.yaml", kubeconfigId: "kubernetes")
               }
             }
           }
@@ -55,7 +65,7 @@ pipeline {
        stage('Deploy Nginx to Kubernetes') {
           steps {
             script {
-              kubernetesDeploy(configs: "k8s/nginx/", kubeconfigId: "kubernetes")
+              kubernetesDeploy(configs: "nginx.yaml", kubeconfigId: "kubernetes")
               }
             }
           }
