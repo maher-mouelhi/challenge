@@ -12,6 +12,7 @@ pipeline {
             }
         }
 
+
         stage('Create namespace in Kubernetes') {
           steps {
             script {
@@ -20,53 +21,10 @@ pipeline {
             }
           }
 
-       stage('Deploy Elastic to Kubernetes') {
+
+        stage('Deploy ELK Kubernetes') {
           steps {
-            script {
-              kubernetesDeploy(configs: "k8s/elastic/statefulSet.yaml", kubeconfigId: "kubernetes")
-              }
-            }
-          }
-
-       stage('Deploy Elastic service to Kubernetes') {
-          steps {
-            script {
-              kubernetesDeploy(configs: "k8s/elastic/service.yaml", kubeconfigId: "kubernetes")
-              }
-            }
-          }
-
-
-
-       stage('Deploy Filebeat to Kubernetes') {
-          steps {
-            script {
-              kubernetesDeploy(configs: "k8s/filebeat/", kubeconfigId: "kubernetes")
-              }
-            }
-          }
-
-        stage('Deploy Kibana to Kubernetes') {
-          steps {
-            script {
-              kubernetesDeploy(configs: "k8s/kibana/", kubeconfigId: "kubernetes")
-              }
-            }
-          }
-
-       stage('Deploy Logstash to Kubernetes') {
-          steps {
-            script {
-              kubernetesDeploy(configs: "k8s/logstash/", kubeconfigId: "kubernetes")
-              }
-            }
-          }
-
-       stage('Deploy Nginx to Kubernetes') {
-          steps {
-            script {
-              kubernetesDeploy(configs: "k8s/nginx/", kubeconfigId: "kubernetes")
-              }
+            sh './k8s/run.sh'
             }
           }
 
