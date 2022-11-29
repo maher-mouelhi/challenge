@@ -14,7 +14,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'deploying!'
-                sh 'kubectl get nodes'
+                sh 'kubectl --kube-config=/home/maher/.kube get nodes'
  
             }
         }
