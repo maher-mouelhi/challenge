@@ -24,12 +24,16 @@ pipeline {
           steps {
             script {
               kubernetesDeploy(configs: "k8s/elastic/", kubeconfigId: "kubernetes")
-              sh "kubectl --kubeconfig=/home/maher/.kube/config apply -f k8s/elastic/statefulSet.yaml"
 
               }
             }
           }
 
+  stage('Apply Kubernetes files') {
+    withKubeConfig([credentialsId: 'kubernetes-admin', serverUrl: 'https://192.168.122.130:6443']) {
+      sh 'kubectl apply -f k8s/elastic/statefulSet.yaml'
+    }
+  }
 
       stage('Deploy Filebeat to Kubernetes') {
           steps {
