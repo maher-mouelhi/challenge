@@ -20,12 +20,29 @@ pipeline {
             }
           }
 
+       stage('Deploy Elastic to Kubernetes') {
+          steps {
+            script {
+              kubernetesDeploy(configs: "k8s/elastic/statefulSet.yaml", kubeconfigId: "kubernetes")
+              }
+            }
+          }
+
+       stage('Deploy Elastic service to Kubernetes') {
+          steps {
+            script {
+              kubernetesDeploy(configs: "k8s/elastic/service.yaml", kubeconfigId: "kubernetes")
+              }
+            }
+          }
 
 
        stage('Deploy Filebeat to Kubernetes') {
           steps {
             script {
-              kubernetesDeploy(configs: "k8s/filebeat/", kubeconfigId: "kubernetes")
+              kubernetesDeploy(configs: "k8s/filebeat/configmap.yaml", kubeconfigId: "kubernetes")
+              kubernetesDeploy(configs: "k8s/filebeat/daemonset.yaml", kubeconfigId: "kubernetes")
+
               }
             }
           }
