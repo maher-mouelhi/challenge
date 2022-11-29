@@ -24,7 +24,7 @@ pipeline {
 
         stage('Deploy ELK Kubernetes') {
           steps {
-            sh './k8s/run.sh'
+            sh 'kubectl apply -f elastic/'
             }
           }
 
