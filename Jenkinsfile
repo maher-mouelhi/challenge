@@ -58,8 +58,22 @@ pipeline {
           }
 
 
+       stage('Deploy Logstash to Kubernetes') {
+          steps {
+            script {
+              kubernetesDeploy(configs: "k8s/logstash/", kubeconfigId: "kubernetes")
+              }
+            }
+          }
 
 
+       stage('Deploy Filebeat to Kubernetes') {
+          steps {
+            script {
+              kubernetesDeploy(configs: "k8s/filebeat/", kubeconfigId: "kubernetes")
+              }
+            }
+          }
 
 
   }
