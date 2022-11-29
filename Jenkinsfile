@@ -2,7 +2,7 @@ pipeline {
     agent any 
     stages {
         stage('Build') {
-            steps {
+          steps {
                 echo 'building!' 
             }
         }
@@ -12,13 +12,57 @@ pipeline {
             }
         }
 
-        stage('Deploying App to Kubernetes') {
+        stage('Create namespace in Kubernetes') {
           steps {
             script {
               kubernetesDeploy(configs: "k8s/namespace.yaml", kubeconfigId: "kubernetes")
               }
             }
           }
+
+       stage('Deploy Elastic to Kubernetes') {
+          steps {
+            script {
+              kubernetesDeploy(configs: "k8s/elastic/", kubeconfigId: "kubernetes")
+              }
+            }
+          }
+
+       stage('Deploy Filebeat to Kubernetes') {
+          steps {
+            script {
+              kubernetesDeploy(configs: "k8s/filebeat/", kubeconfigId: "kubernetes")
+              }
+            }
+          }
+
+        stage('Deploy Kibana to Kubernetes') {
+          steps {
+            script {
+              kubernetesDeploy(configs: "k8s/kibana/", kubeconfigId: "kubernetes")
+              }
+            }
+          }
+
+       stage('Deploy Logstash to Kubernetes') {
+          steps {
+            script {
+              kubernetesDeploy(configs: "k8s/logstash/", kubeconfigId: "kubernetes")
+              }
+            }
+          }
+
+       stage('Deploy Nginx to Kubernetes') {
+          steps {
+            script {
+              kubernetesDeploy(configs: "k8s/nginx/", kubeconfigId: "kubernetes")
+              }
+            }
+          }
+
+
+
+
 
   }
 
