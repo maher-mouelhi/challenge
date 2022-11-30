@@ -1,0 +1,6 @@
+---
+- name: Install jenkins 
+  hosts: all 
+  roles:
+    - geerlingguy.jenkins          
+ 
